@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt")
 // Schema
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  email: {
     type: String,
-    required: true,
+    required: [true, "Please enter an email"],
     unique: true,
     validate: [
       {
@@ -14,14 +14,14 @@ const UserSchema = new mongoose.Schema({
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
           return emailRegex.test(value)
         },
-        message: "Please enter a @.",
+        message: "Please enter a valid email.",
       },
     ],
   },
   password: {
     type: String,
-    required: true,
-    minLength: 10,
+    required: [true, "Please enter a valid password"],
+    minLength: [10, "Min Lenght is 10"],
   },
 })
 
